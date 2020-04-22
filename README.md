@@ -9,8 +9,14 @@ There are 3 modes of export supported:
 2. Hierarchical: It creates a hierarchical representation based on the nested keys in parameters store.
 3. Blueprint-Based: This mode is NOT RECOMMENDED, flat/hierarchical mode should be used. This is for manual mapping to an existing document (json mostly) where parameters store values are to be replaced in a pre-existing document. This was created for backward compatibility with json based configuration in existing apps, so no heavy changes would be required.
 
-## Usage
+## Installation
+If you have a functional go environment, you can install with:
 
+```
+$ go get github.com/banknovo/configurator
+```
+
+## Usage
 Currently, only exporting as JSON is supported.
 
 ```
@@ -20,6 +26,8 @@ It assumes that the keys in Parameters Store are defined like the following:
 - `/environment/app/...`
 - `/environment/common-config-1/...`
 - `/environment/common-config-2/...`
+
+When exporting, by default, configurator strips off the environment from the key names, but if you do no want this, or want to control the level of nesting in the exported key names, the flag `--prefix | -p` should be used. Its default value is 1.
 
 If you're using `mode=blueprint`, an additional parameter is required which is path of blueprint json file:
 ```

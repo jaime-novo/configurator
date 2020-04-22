@@ -6,7 +6,7 @@ import (
 	"github.com/banknovo/configurator/core"
 )
 
-// ensure HierarchicalExporter confirms to Exporter interface
+// ensure BlueprintBasedExporter confirms to Exporter interface
 var _ Exporter = &BlueprintBasedExporter{}
 
 // BlueprintBasedExporter takes a blueprint of the required structure and
