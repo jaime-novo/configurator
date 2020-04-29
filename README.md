@@ -15,7 +15,10 @@ If you have a functional go environment, you can install with:
 ```
 $ go get github.com/banknovo/configurator
 ```
-
+To pull the docker image run:
+```
+$ docker pull banknovo/configurator
+```
 ## Usage
 Currently, only exporting as JSON is supported.
 

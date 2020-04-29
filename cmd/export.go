@@ -108,7 +108,9 @@ func runExport(cmd *cobra.Command, args []string) error {
 }
 
 func exportAsJSON(configMap map[string]interface{}, w io.Writer) error {
-	return json.NewEncoder(w).Encode(configMap)
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+	return enc.Encode(configMap)
 }
 
 // getConfig fetches the configs from the store

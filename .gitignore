@@ -15,4 +15,5 @@
 dist
 
 # IDE directories
+.idea
 .vscode
