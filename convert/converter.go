@@ -1,8 +1,11 @@
 package convert
 
 import (
+	"encoding/json"
+	"fmt"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/banknovo/configurator/config"
 )
@@ -13,10 +16,38 @@ type Converter interface {
 	Convert(configs []*config.Config) (map[string]interface{}, error)
 }
 
+func parseJson(jsonValue string) (interface{}, error) {
+
+	if !json.Valid([]byte(jsonValue)) {
+		return nil, fmt.Errorf("The given string is not a valid JSON")
+	}
+
+	var parsedJson interface{}
+
+	if err := json.Unmarshal([]byte(jsonValue), &parsedJson); err != nil {
+		return nil, err
+	}
+
+	return parsedJson, nil
+
+}
+
 // getTypedValue attempts to convert rawValue to its data type
 func getTypedValue(rawValue string) interface{} {
 	var parsedValue interface{}
 	var err error
+
+	// Initially, validate if the JSON prefix is set
+	jsonValue, isJson := strings.CutPrefix(rawValue, "json::")
+
+	if isJson == true {
+		parsedValue, err := parseJson(jsonValue)
+		if err == nil {
+			return parsedValue
+		} else {
+			fmt.Println(err)
+		}
+	}
 
 	// check if it is a bool
 	if rawValue == "true" {
